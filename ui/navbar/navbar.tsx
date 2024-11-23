@@ -8,11 +8,11 @@ const navItems = [
 
 export function Navbar() {
   return (
-    <ul>
-      {navItems.map((navItems) => {
+    <ul className="flex flex-wrap gap-4 justify-center">
+      {navItems.map((navItems, index) => {
         return (
           <>
-            <li>
+            <li key={index} className="p-5">
               <Link href={navItems.href as Route}>{navItems.name}</Link>
             </li>
           </>
