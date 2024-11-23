@@ -1,3 +1,9 @@
+import { AddRepresentativeForm } from "@/features/representatives/add-representative/AddRepresentativeForm";
+
 export default function Page() {
-  return <h1>Add representative</h1>;
+  return (
+    <>
+      <AddRepresentativeForm />
+    </>
+  );
 }
