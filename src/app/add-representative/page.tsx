@@ -1,4 +1,4 @@
-import { AddRepresentativeForm } from "@/features/representatives/add-representative/AddRepresentativeForm";
+import { AddRepresentativeForm } from "@/features/representatives/AddRepresentativeForm";
 
 export default function Page() {
   return (
