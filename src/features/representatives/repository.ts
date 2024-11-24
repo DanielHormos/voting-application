@@ -1,4 +1,4 @@
-import { db } from "@/db/index";
+import { db } from "@/db/db";
 import { representativesTable } from "@/db/schema";
 import { RepresentativeInsert } from "@/db/types";
 
