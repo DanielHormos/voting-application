@@ -3,7 +3,7 @@ import { Repository } from "./repository";
 
 export function createService(repository: Repository) {
   return {
-    async AddRepresentative({ fullname, email }: RepresentativeInsert) {
+    async addRepresentative({ fullname, email }: RepresentativeInsert) {
       const existingRepresentative = await repository.fetchRepresentatives();
 
       const doesEmailExist = existingRepresentative.some((representative) => {
