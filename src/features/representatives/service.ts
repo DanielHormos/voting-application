@@ -20,5 +20,9 @@ export function createService(repository: Repository) {
     async fetchRepresentatives() {
       return await repository.fetchRepresentatives();
     },
+
+    async voteRepresentative(id: number) {
+      return await repository.voteRepresentative(id);
+    },
   };
 }
