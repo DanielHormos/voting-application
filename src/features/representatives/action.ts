@@ -19,3 +19,8 @@ export async function addRepresentative(data: FormData) {
 export async function fetchRepresentatives() {
   return await representativeFeature.fetchRepresentatives();
 }
+
+export async function voteRepresentative(id: number) {
+  await representativeFeature.voteRepresentative(id);
+  revalidatePath("/representatives");
+}
