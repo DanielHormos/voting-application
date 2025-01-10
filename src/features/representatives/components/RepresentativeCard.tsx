@@ -1,5 +1,5 @@
-import { voteRepresentative } from "./action";
-import { Representative } from "./types";
+import { voteRepresentative } from "../action";
+import { Representative } from "../types";
 
 export function RepresentativeCard({ representatives }) {
   return (

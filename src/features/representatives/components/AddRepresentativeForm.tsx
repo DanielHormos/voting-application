@@ -16,6 +16,7 @@ export function AddRepresentativeForm() {
         type="text"
         name="fullname"
         placeholder="Enter full name"
+        required
         className="w-full p-2 mb-4 rounded-md border"
       />
 
@@ -27,6 +28,7 @@ export function AddRepresentativeForm() {
         type="email"
         name="email"
         placeholder="Enter email"
+        required
         className="w-full p-2 mb-4 rounded-md border"
       />
 
