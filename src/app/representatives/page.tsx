@@ -1,5 +1,5 @@
 import AddRepresentativeForm from "@/features/representatives/AddRepresentativeForm";
-import { RepresentativeCard } from "@/features/representatives/RepresentativeCard";
+import { RepresentativeCard } from "@/features/representatives/components/RepresentativeCard";
 import { fetchRepresentatives } from "@/features/representatives/action";
 
 export default async function Page() {
