@@ -5,6 +5,8 @@ const navItems = [
   { name: "Home", href: "/" },
   { name: "Representatives", href: "/representatives" },
   { name: "Add Representative", href: "/add-representative" },
+  { name: "Elections", href: "/elections" },
+  { name: "Add Election", href: "/add-election" },
 ];
 
 export function Navbar() {
