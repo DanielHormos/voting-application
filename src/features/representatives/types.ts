@@ -1,6 +1,4 @@
 export type Representative = {
-  id: number;
-  fullname: string;
+  name: string;
   email: string;
-  public_votes: number;
 };
