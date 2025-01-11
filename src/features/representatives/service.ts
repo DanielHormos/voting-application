@@ -1,4 +1,4 @@
-import { RepresentativeInsert } from "@/db/types";
+import { RepresentativeInsert } from "./types";
 import { createRepository } from "./repository";
 import { Db } from "@/db";
 

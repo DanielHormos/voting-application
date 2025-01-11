@@ -1,6 +1,6 @@
 import { Db } from "@/db";
 import { representativesTable } from "@/features/representatives/schema";
-import { RepresentativeInsert } from "@/db/types";
+import { RepresentativeInsert } from "./types";
 
 export function createRepository(db: Db) {
   return {
