@@ -1,10 +1,12 @@
 import { RepresentativeInsert } from "@/db/types";
-import { Repository } from "./repository";
+import { createRepository } from "./repository";
+import { Db } from "@/db";
 
-export function createService(repository: Repository) {
+export function createService(db: Db) {
+  const repository = createRepository(db);
   return {
     async addRepresentative({ fullname, email }: RepresentativeInsert) {
-      const existingRepresentative = await repository.fetchRepresentatives();
+      const existingRepresentative = await repository.getAllRepresentatives();
 
       const doesEmailExist = existingRepresentative.some((representative) => {
         return representative.email === email;
@@ -17,12 +19,12 @@ export function createService(repository: Repository) {
       return await repository.addRepresentative({ fullname, email });
     },
 
-    async fetchRepresentatives() {
-      return await repository.fetchRepresentatives();
+    async getAllRepresentatives() {
+      return await repository.getAllRepresentatives();
     },
 
-    async voteRepresentative(id: number) {
-      return await repository.voteRepresentative(id);
-    },
+    // async voteRepresentative(id: number) {
+    //   return await repository.voteRepresentative(id);
+    // },
   };
 }
