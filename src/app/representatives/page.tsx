@@ -1,19 +1,9 @@
-import AddRepresentativeForm from "@/features/representatives/AddRepresentativeForm";
-import { RepresentativeCard } from "@/features/representatives/components/RepresentativeCard";
-import { fetchRepresentatives } from "@/features/representatives/action";
+import { Representatives } from "@/features";
 
-export default async function Page() {
-  const representative = await fetchRepresentatives();
-
+export default function Page() {
   return (
     <>
-      <div className="flex justify-center">
-        <AddRepresentativeForm />
-      </div>
-      <div className="flex justify-center w-full">
-        <h1>All Representatives</h1>
-        <RepresentativeCard representatives={representative} />
-      </div>
+      <Representatives />
     </>
   );
 }
