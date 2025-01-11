@@ -4,6 +4,7 @@ import Link from "next/link";
 const navItems = [
   { name: "Home", href: "/" },
   { name: "Representatives", href: "/representatives" },
+  { name: "Add Representative", href: "/add-representative" },
 ];
 
 export function Navbar() {
