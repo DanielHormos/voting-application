@@ -16,11 +16,8 @@ export async function addRepresentative(data: FormData) {
   revalidatePath("/representatives");
 }
 
-export async function fetchRepresentatives() {
-  return await representativeFeature.getAllRepresentatives();
+export async function addPublicVote(representativeId: string) {
+  const voterId = "5a04a31c-90f7-4625-af10-3fa77c3c615d";
+  await representativeFeature.addPublicVote(representativeId, voterId);
+  revalidatePath("/representatives");
 }
-
-// export async function voteRepresentative(id: number) {
-//   await representativeFeature.voteRepresentative(id);
-//   revalidatePath("/representatives");
-// }
