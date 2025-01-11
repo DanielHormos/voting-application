@@ -5,9 +5,9 @@ export function AddRepresentativeForm() {
     <div className="flex justify-center items-center h-screen">
       <form
         action={addRepresentative}
-        className="flex flex-col items-center p-6 max-w-md"
+        className="flex flex-col items-center p-6 max-w-md w-full"
       >
-        <h2 className="text-2xl font-bold">Add Representative</h2>
+        <h2 className="text-2xl font-bold mb-4">Add Representative</h2>
 
         <label htmlFor="fullname" className="w-full text-left mb-2">
           Full Name
@@ -35,7 +35,7 @@ export function AddRepresentativeForm() {
 
         <button
           type="submit"
-          className="mt-4 py-2 border border-white rounded-md"
+          className="bg-blue-500 text-white p-2 rounded-md w-full"
         >
           Add Representative
         </button>
