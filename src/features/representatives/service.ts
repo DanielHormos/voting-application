@@ -4,8 +4,8 @@ import { Db } from "@/db";
 
 export function createService(
   db: Db,
-  getPublicVoteDataById: typeof publicVoteService.getPublicVoteDataById,
-  getPublicVoteData: typeof publicVoteService.getPublicVoteData
+  getPublicVoteData: typeof publicVoteService.getPublicVoteData,
+  getPublicVoteDataById: typeof publicVoteService.getPublicVoteDataById
 ) {
   const repository = createRepository(db);
   return {
@@ -23,7 +23,7 @@ export function createService(
       return await repository.getRepresentativeVotesById(id);
     },
     async addPublicVote(representativeId: string, publicVoteId: string) {
-      const publicVoter = await repository.getPublicVoteDataById(publicVoteId);
+      const publicVoter = await getPublicVoteDataById(publicVoteId);
       if (!publicVoter) {
         throw new Error("Public voter not found");
       }
