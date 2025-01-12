@@ -18,7 +18,10 @@ export function createService(
   getRepresentative: typeof representativeFeature.getRepresentativeById
 ) {
   const repository = createRepository(db);
-
+  async function getTotalVotes(representativeId: string): Promise<number> {
+    const votes = await getRepresentativeVotes(representativeId);
+    return votes[0]?.totalVotes?.totalVotes || 0;
+  }
   return {
     async getPublicVoterData() {
       return await getPublicVoterData();
@@ -46,11 +49,6 @@ export function createService(
         ...vote,
         totalVotes,
       });
-    },
-
-    async getTotalVotes(representativeId: string): Promise<number> {
-      const votes = await getRepresentativeVotes(representativeId);
-      return votes[0]?.totalVotes?.totalVotes || 0;
     },
 
     async addPublicPreference(vote: ElectionPreferenceInsert) {
