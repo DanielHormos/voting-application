@@ -12,7 +12,7 @@ export function ElectionCard({ title, status, choices, id }: Election) {
   const [choice, setChoice] = useState<string | null>(null);
 
   async function onConclude() {
-    await concludeElectionAction(id);
+    await concludeElectionAction(id, title);
   }
 
   async function onVote() {

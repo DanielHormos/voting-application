@@ -21,8 +21,12 @@ export async function fetchElectionsAction() {
   return await electionInstance.getAllElections();
 }
 
-export async function concludeElectionAction(electionId: string) {
+export async function concludeElectionAction(
+  electionId: string,
+  title: string
+) {
   await electionInstance.concludeElection(electionId);
+  await electionInstance.addElectionWinner(electionId, title);
   revalidatePath("/elections");
 }
 

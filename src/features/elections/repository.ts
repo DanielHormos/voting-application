@@ -1,5 +1,5 @@
 import { Db } from "@/db";
-import { desc, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import {
   ElectionInsert,
   ElectionPreferenceInsert,
@@ -40,19 +40,7 @@ export function createRepository(db: Db) {
         .where(eq(electionsTable.id, electionId));
     },
 
-    async addElectionWinner(electionWinner: ElectionWinnerInsert) {
-      await db.insert(electionWinnerTable).values(electionWinner);
-    },
-    async getElectionWinner(electionId: string) {
-      return await db
-        .select()
-        .from(electionVoteTable)
-        .where(eq(electionVoteTable.electionId, electionId))
-        .orderBy(desc(electionVoteTable.totalVotes))
-        .limit(1);
-    },
-
-    async getConcludedElectionData() {
+    async getElectionWinner() {
       return await db.select().from(electionWinnerTable);
     },
     async getElectionPreference(electionId: string) {
@@ -72,6 +60,15 @@ export function createRepository(db: Db) {
         .update(electionsTable)
         .set({ status: "concluded" })
         .where(eq(electionsTable.id, electionId));
+    },
+    async addElectionWinner(electionWinner: ElectionWinnerInsert) {
+      await db.insert(electionWinnerTable).values(electionWinner);
+    },
+    async getConcludedElectionDataById(electionId: string) {
+      return await db
+        .select()
+        .from(electionVoteTable)
+        .where(eq(electionVoteTable.electionId, electionId));
     },
   };
 }

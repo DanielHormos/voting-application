@@ -1,11 +1,5 @@
 import { sql } from "drizzle-orm";
-import {
-  integer,
-  pgTable,
-  timestamp,
-  uuid,
-  varchar,
-} from "drizzle-orm/pg-core";
+import { integer, pgTable, uuid, varchar } from "drizzle-orm/pg-core";
 
 export const electionsTable = pgTable("election", {
   id: uuid()
@@ -50,10 +44,7 @@ export const electionWinnerTable = pgTable("election_winner", {
   name: varchar().notNull(),
   email: varchar().notNull(),
   title: varchar().notNull(),
-  time: timestamp().notNull(),
   winnerChoice: varchar().notNull(),
-  choices: varchar().array().notNull(),
-  total: integer().notNull(),
 });
 
 export type ElectionInsert = typeof electionsTable.$inferInsert;

@@ -7,6 +7,7 @@ const navItems = [
   { name: "Add Representative", href: "/add-representative" },
   { name: "Elections", href: "/elections" },
   { name: "Add Election", href: "/add-election" },
+  { name: "Concluded Elections", href: "/concluded-elections" },
 ];
 
 export function Navbar() {

@@ -6,7 +6,6 @@ import {
   ElectionInsert,
   ElectionPreferenceInsert,
   ElectionVoteInsert,
-  ElectionWinnerInsert,
 } from "./schema";
 import { electionSchema } from "./validation";
 
@@ -58,38 +57,30 @@ export function createService(
     async concludeElection(electionId: string) {
       return await repository.concludeElection(electionId);
     },
-    async getConcludedElectionData() {
-      return await repository.getConcludedElectionData();
-    },
-
-    async addElectionWinner(electionId: string, title: string, time: Date) {
-      const election = await repository.getElectionById(electionId);
-      const electionWinner = await repository.getElectionWinner(electionId);
-      const representative = await getRepresentativeById(
-        electionWinner[0]?.representativeId
-      );
-
-      const winnerChoice = electionWinner[0]?.choice;
-
-      const preferences = await repository.getElectionPreference(electionId);
-
-      const winner: ElectionWinnerInsert = {
-        electionId,
-        name: representative.map(
-          (representative) => representative.fullname
-        )[0],
-        title,
-        time,
-        email: representative.map((representative) => representative.email)[0],
-        winnerChoice,
-        choices: election[0]?.choices,
-        total: preferences.length,
-      };
-      return repository.addElectionWinner(winner);
+    async getElectionWinner() {
+      return await repository.getElectionWinner();
     },
 
     async getElectionWinnerChoice(electionId: string) {
       return await repository.getElectionWinnerChoice(electionId);
+    },
+    async addElectionWinner(electionId: string, title: string) {
+      const election = await repository.getConcludedElectionDataById(
+        electionId
+      );
+      const winnerRepresentative = await getRepresentativeById(
+        election[0].representativeId
+      );
+
+      const electionWinner = {
+        name: winnerRepresentative[0].fullname,
+        email: winnerRepresentative[0].email,
+        title: title,
+        electionId,
+        winnerChoice: election[0].choice,
+      };
+
+      return await repository.addElectionWinner(electionWinner);
     },
   };
 }

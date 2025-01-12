@@ -1,6 +1,6 @@
-import { createRepository } from "./repository";
 import { Db } from "@/db";
 import { publicVoteInstance } from "../public-voters/instance";
+import { createRepository } from "./repository";
 import { RepresentativeInsert } from "./schema";
 import { representativeSchema } from "./validation";
 
@@ -16,6 +16,9 @@ export function createService(
     async getAllRepresentatives() {
       return await repository.getAllRepresentatives();
     },
+    async getRepresentativeById(id: string) {
+      return await repository.getRepresentativeById(id);
+    },
     async addRepresentative({ fullname, email }: RepresentativeInsert) {
       const representative = representativeSchema.safeParse({
         fullname,
@@ -28,9 +31,6 @@ export function createService(
       return await repository.addRepresentative({ fullname, email });
     },
 
-    async getRepresentativeById(id: string) {
-      return await repository.getRepresentativeById(id);
-    },
     async getRepresentativeVotesById(id: string) {
       return await repository.getRepresentativeVotesById(id);
     },
