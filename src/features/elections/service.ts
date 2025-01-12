@@ -1,31 +1,25 @@
 import { Db } from "@/db";
+import { publicVoteInstance } from "../public-voters";
+import { representativeInstance } from "../representatives/instance";
 import { createRepository } from "./repository";
 import {
-  ElectionPreferenceInsert,
   ElectionInsert,
+  ElectionPreferenceInsert,
   ElectionVoteInsert,
   ElectionWinnerInsert,
 } from "./schema";
 import { electionSchema } from "./validation";
-import { representativeInstance } from "../representatives/instance";
 
 export function createService(
   db: Db,
-  getPublicVoter: (voterId: string) => Promise<string[]>,
-  getPublicVoterData: typeof representativeInstance.getPublicVoteData,
+  getRepresentativeById: typeof representativeInstance.getRepresentativeById,
   getAllRepresentatives: typeof representativeInstance.getAllRepresentatives,
-  getRepresentativeVotes: typeof representativeInstance.getRepresentativeVotesById,
-  getRepresentative: typeof representativeInstance.getRepresentativeById
+  getRepresentativesVoteById: typeof representativeInstance.getRepresentativeVotesById,
+  getPublicVoter: typeof publicVoteInstance.getPublicVoterDataById
 ) {
   const repository = createRepository(db);
-  async function getTotalVotes(representativeId: string): Promise<number> {
-    const votes = await getRepresentativeVotes(representativeId);
-    return votes[0]?.totalVotes || 0;
-  }
+
   return {
-    async getPublicVoterData() {
-      return await getPublicVoterData();
-    },
     async getAllRepresentatives() {
       return await getAllRepresentatives();
     },
@@ -33,7 +27,18 @@ export function createService(
       return await repository.getAllElections();
     },
 
-    async addElection(election: ElectionInsert) {
+    async addElectionVote(vote: ElectionVoteInsert) {
+      const voter = await getRepresentativeById(vote.representativeId);
+      const votes = await getRepresentativesVoteById(vote.representativeId);
+
+      const totalVotes = votes[0]?.totalVotes;
+      if (voter.length === 0) {
+        throw new Error("Voter not found");
+      }
+      return await repository.addRepresentativeVote({ ...vote, totalVotes });
+    },
+
+    async addElectionAction(election: ElectionInsert) {
       console.log(election);
       const electionData = electionSchema.safeParse(election);
 
@@ -43,15 +48,6 @@ export function createService(
       await repository.addElection(election);
     },
 
-    async addRepresentativeVote(vote: ElectionVoteInsert) {
-      const totalVotes = await getTotalVotes(vote.representativeId);
-
-      return repository.addRepresentativeVote({
-        ...vote,
-        totalVotes,
-      });
-    },
-
     async addPublicPreference(vote: ElectionPreferenceInsert) {
       const voter = await getPublicVoter(vote.voterId);
       if (voter.length === 0) {
@@ -59,8 +55,9 @@ export function createService(
       }
       return await repository.addPublicPreference(vote);
     },
+
     async concludeElection(electionId: string) {
-      return await repository.updateElectionStatus(electionId);
+      return await repository.concludeElection(electionId);
     },
     async getConcludedElectionData() {
       return await repository.getConcludedElectionData();
@@ -69,7 +66,7 @@ export function createService(
     async addElectionWinner(electionId: string, title: string, time: Date) {
       const election = await repository.getElectionById(electionId);
       const electionWinner = await repository.getElectionWinner(electionId);
-      const representative = await getRepresentative(
+      const representative = await getRepresentativeById(
         electionWinner[0]?.representativeId
       );
 

@@ -67,5 +67,11 @@ export function createRepository(db: Db) {
         .from(electionWinnerTable)
         .where(eq(electionWinnerTable.electionId, electionId));
     },
+    async concludeElection(electionId: string) {
+      await db
+        .update(electionsTable)
+        .set({ status: "concluded" })
+        .where(eq(electionsTable.id, electionId));
+    },
   };
 }

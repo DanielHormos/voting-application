@@ -7,9 +7,6 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 
-export type ElectionInsert = typeof electionsTable.$inferInsert;
-export type ElectionSelect = typeof electionsTable.$inferSelect;
-
 export const electionsTable = pgTable("election", {
   id: uuid()
     .primaryKey()
@@ -18,9 +15,6 @@ export const electionsTable = pgTable("election", {
   status: varchar().notNull().default("ongoing"),
   choices: varchar().array().notNull(),
 });
-
-export type ElectionVoteInsert = typeof electionVoteTable.$inferInsert;
-export type ElectionVoteSelect = typeof electionVoteTable.$inferSelect;
 
 export const electionVoteTable = pgTable("election_vote", {
   id: uuid()
@@ -35,11 +29,6 @@ export const electionVoteTable = pgTable("election_vote", {
   totalVotes: integer().default(0),
 });
 
-export type ElectionPreferenceInsert =
-  typeof electionPreferenceTable.$inferInsert;
-export type ElectionPreferenceSelect =
-  typeof electionPreferenceTable.$inferSelect;
-
 export const electionPreferenceTable = pgTable("election_preference", {
   id: uuid()
     .primaryKey()
@@ -50,9 +39,6 @@ export const electionPreferenceTable = pgTable("election_preference", {
   preference: varchar().notNull(),
   voterId: uuid().notNull(),
 });
-
-export type ElectionWinnerInsert = typeof electionWinnerTable.$inferInsert;
-export type ElectionWinnerSelect = typeof electionWinnerTable.$inferSelect;
 
 export const electionWinnerTable = pgTable("election_winner", {
   id: uuid()
@@ -69,3 +55,17 @@ export const electionWinnerTable = pgTable("election_winner", {
   choices: varchar().array().notNull(),
   total: integer().notNull(),
 });
+
+export type ElectionInsert = typeof electionsTable.$inferInsert;
+export type ElectionSelect = typeof electionsTable.$inferSelect;
+
+export type ElectionVoteInsert = typeof electionVoteTable.$inferInsert;
+export type ElectionVoteSelect = typeof electionVoteTable.$inferSelect;
+
+export type ElectionPreferenceInsert =
+  typeof electionPreferenceTable.$inferInsert;
+export type ElectionPreferenceSelect =
+  typeof electionPreferenceTable.$inferSelect;
+
+export type ElectionWinnerInsert = typeof electionWinnerTable.$inferInsert;
+export type ElectionWinnerSelect = typeof electionWinnerTable.$inferSelect;

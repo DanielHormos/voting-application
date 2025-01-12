@@ -1,8 +1,13 @@
+"use server";
 import { electionInstance } from "../instance";
 import { ElectionCard } from "./ElectionCard";
 
 export async function Elections() {
-  const elections = await electionInstance.getAllElections();
+  const election = await electionInstance.getAllElections();
+
+  const elections = election.filter((election) => {
+    return election.status === "ongoing";
+  });
 
   return (
     <div>
@@ -10,6 +15,7 @@ export async function Elections() {
         return (
           <ElectionCard
             key={election.id}
+            id={election.id}
             title={election.title}
             status={election.status}
             choices={election.choices}
