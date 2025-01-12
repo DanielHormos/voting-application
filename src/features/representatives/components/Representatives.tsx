@@ -12,6 +12,8 @@ export async function Representatives() {
             key={representer.id}
             name={representer.fullname}
             email={representer.email}
+            votes={representer.totalVotes as number}
+            representativeId={representer.id}
           />
         );
       })}
