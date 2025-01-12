@@ -2,10 +2,9 @@ import { Route } from "next";
 import Link from "next/link";
 
 const navItems = [
-  { name: "Home", href: "/" },
+  { name: "Election", href: "/" },
   { name: "Representatives", href: "/representatives" },
   { name: "Add Representative", href: "/add-representative" },
-  { name: "Elections", href: "/elections" },
   { name: "Add Election", href: "/add-election" },
   { name: "Concluded Elections", href: "/concluded-elections" },
 ];
