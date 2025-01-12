@@ -30,7 +30,7 @@ export const electionVoteTable = pgTable("election_vote", {
     .notNull()
     .references(() => electionsTable.id)
     .notNull(),
-  choice: varchar({ length: 255 }).notNull(),
+  choice: varchar().notNull(),
   representativeId: uuid().notNull(),
   totalVotes: integer().default(0),
 });
@@ -47,7 +47,7 @@ export const electionPreferenceTable = pgTable("election_preference", {
   electionId: uuid()
     .references(() => electionsTable.id)
     .notNull(),
-  preference: varchar({ length: 255 }).notNull(),
+  preference: varchar().notNull(),
   voterId: uuid().notNull(),
 });
 
@@ -61,13 +61,11 @@ export const electionWinnerTable = pgTable("election_winner", {
   electionId: uuid()
     .references(() => electionsTable.id)
     .notNull(),
-  name: varchar({ length: 255 }).notNull(),
-  email: varchar({ length: 255 }).notNull(),
-  title: varchar({ length: 255 }).notNull(),
+  name: varchar().notNull(),
+  email: varchar().notNull(),
+  title: varchar().notNull(),
   time: timestamp().notNull(),
-  winnerChoice: varchar({ length: 255 }).notNull(),
-  choices: varchar({ length: 255 }).array().notNull(),
-  agreed: integer().notNull(),
-  disagreed: integer().notNull(),
+  winnerChoice: varchar().notNull(),
+  choices: varchar().array().notNull(),
   total: integer().notNull(),
 });
