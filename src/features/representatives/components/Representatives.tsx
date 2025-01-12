@@ -1,8 +1,8 @@
-import { representativeFeature } from "../instance";
+import { representativeInstance } from "../instance";
 import { RepresentativeCard } from "./RepresentativeCard";
 
 export async function Representatives() {
-  const representatives = await representativeFeature.getAllRepresentatives();
+  const representatives = await representativeInstance.getAllRepresentatives();
 
   return (
     <div>

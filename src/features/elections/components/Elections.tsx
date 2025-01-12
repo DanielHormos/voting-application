@@ -1,8 +1,8 @@
-import { electionFeature } from "../instance";
+import { electionInstance } from "../instance";
 import { ElectionCard } from "./ElectionCard";
 
 export async function Elections() {
-  const elections = await electionFeature.getAllElections();
+  const elections = await electionInstance.getAllElections();
 
   return (
     <div>
