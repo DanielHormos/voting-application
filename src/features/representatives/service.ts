@@ -2,6 +2,7 @@ import { createRepository } from "./repository";
 import { Db } from "@/db";
 import { publicVoteInstance } from "../public-voters/instance";
 import { RepresentativeInsert } from "./schema";
+import { representativeSchema } from "./validation";
 
 export function createService(
   db: Db,
@@ -16,6 +17,14 @@ export function createService(
       return await repository.getAllRepresentatives();
     },
     async addRepresentative({ fullname, email }: RepresentativeInsert) {
+      const representative = representativeSchema.safeParse({
+        fullname,
+        email,
+      });
+      if (!representative.success) {
+        throw new Error("Invalid representative data");
+      }
+
       return await repository.addRepresentative({ fullname, email });
     },
 
