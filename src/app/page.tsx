@@ -1,3 +1,9 @@
+import { Elections } from "@/features";
+
 export default function Home() {
-  return <h1>Welcome Page</h1>;
+  return (
+    <>
+      <Elections />
+    </>
+  );
 }
