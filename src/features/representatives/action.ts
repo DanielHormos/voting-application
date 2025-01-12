@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { representativeFeature } from "./instance";
+import { representativeInstance } from "./instance";
 
 export async function addRepresentative(data: FormData) {
   const fullname = data.get("fullname") as string;
@@ -12,12 +12,12 @@ export async function addRepresentative(data: FormData) {
     public_votes: 0,
   };
 
-  await representativeFeature.addRepresentative(representative);
+  await representativeInstance.addRepresentative(representative);
   revalidatePath("/representatives");
 }
 
 export async function addPublicVote(representativeId: string) {
   const voterId = "5a04a31c-90f7-4625-af10-3fa77c3c615d";
-  await representativeFeature.addPublicVote(representativeId, voterId);
+  await representativeInstance.addPublicVote(representativeId, voterId);
   revalidatePath("/representatives");
 }
