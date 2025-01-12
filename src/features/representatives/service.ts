@@ -6,7 +6,7 @@ import { representativeSchema } from "./validation";
 
 export function createService(
   db: Db,
-  getPublicVoteData: typeof publicVoteInstance.getPublicVoteData
+  getPublicVoteData: typeof publicVoteInstance.getPublicVoterData
 ) {
   const repository = createRepository(db);
   return {
