@@ -36,7 +36,7 @@ export function createService(
     },
     async addPublicVote(representativeId: string, publicVoteId: string) {
       const voters = await getPublicVoteData();
-      const publicVoter = voters.find((voter) => voter.id === publicVoteId);
+      const publicVoter = voters.filter((voter) => voter.id === publicVoteId);
       if (!publicVoter) {
         throw new Error("Public voter not found");
       }
