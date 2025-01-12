@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { electionFeature } from "./instance";
+import { electionInstance } from "./instance";
 
 export async function addElection(data: FormData) {
   const title = data.get("title") as string;
@@ -13,10 +13,10 @@ export async function addElection(data: FormData) {
     choices,
   };
 
-  await electionFeature.addElection(election);
+  await electionInstance.addElection(election);
   revalidatePath("/elections");
 }
 
 export async function fetchElections() {
-  return await electionFeature.getAllElections();
+  return await electionInstance.getAllElections();
 }

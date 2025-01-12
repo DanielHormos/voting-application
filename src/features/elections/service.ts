@@ -7,15 +7,15 @@ import {
   ElectionWinnerInsert,
 } from "./schema";
 import { electionSchema } from "./validation";
-import { representativeFeature } from "../representatives/instance";
+import { representativeInstance } from "../representatives/instance";
 
 export function createService(
   db: Db,
   getPublicVoter: (voterId: string) => Promise<string[]>,
-  getPublicVoterData: typeof representativeFeature.getPublicVoteData,
-  getAllRepresentatives: typeof representativeFeature.getAllRepresentatives,
-  getRepresentativeVotes: typeof representativeFeature.getRepresentativeVotesById,
-  getRepresentative: typeof representativeFeature.getRepresentativeById
+  getPublicVoterData: typeof representativeInstance.getPublicVoteData,
+  getAllRepresentatives: typeof representativeInstance.getAllRepresentatives,
+  getRepresentativeVotes: typeof representativeInstance.getRepresentativeVotesById,
+  getRepresentative: typeof representativeInstance.getRepresentativeById
 ) {
   const repository = createRepository(db);
   async function getTotalVotes(representativeId: string): Promise<number> {
