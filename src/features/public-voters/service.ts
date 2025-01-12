@@ -1,14 +1,14 @@
+import { Db } from "@/db";
+import { createPublicVoteRepository } from "./repository";
+
 export function createPublicVoteService(db: Db) {
   const repository = createPublicVoteRepository(db);
   return {
     async getPublicVoteData() {
       return repository.getPublicVoteData();
     },
-    async getPublicVoteDataById(id) {
-      return repository.getPublicVoteDataById(id);
-    },
-    async addPublicVoteById(id) {
-      return repository.addPublicVoteById(id);
+    async addPublicVoteById(id: string) {
+      return repository.addPublicVoterById(id);
     },
   };
 }
