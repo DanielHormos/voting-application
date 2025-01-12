@@ -10,7 +10,7 @@ export async function Elections() {
   });
 
   return (
-    <div>
+    <div className="flex flex-wrap -m-4">
       {elections.map((election) => {
         return (
           <ElectionCard

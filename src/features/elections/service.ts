@@ -39,7 +39,6 @@ export function createService(
     },
 
     async addElectionAction(election: ElectionInsert) {
-      console.log(election);
       const electionData = electionSchema.safeParse(election);
 
       if (!electionData.success) {

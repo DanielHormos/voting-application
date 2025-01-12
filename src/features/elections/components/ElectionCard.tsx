@@ -39,7 +39,7 @@ export function ElectionCard({ title, status, choices, id }: Election) {
             onChange={(e) => setChoice(e.target.value)}
             className="select select-bordered"
           >
-            <option disabled selected>
+            <option disabled value="">
               Pick one
             </option>
             {choices.map((choice, index) => (
