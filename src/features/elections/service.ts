@@ -20,7 +20,7 @@ export function createService(
   const repository = createRepository(db);
   async function getTotalVotes(representativeId: string): Promise<number> {
     const votes = await getRepresentativeVotes(representativeId);
-    return votes[0]?.totalVotes?.totalVotes || 0;
+    return votes[0]?.totalVotes || 0;
   }
   return {
     async getPublicVoterData() {
@@ -34,12 +34,13 @@ export function createService(
     },
 
     async addElection(election: ElectionInsert) {
+      console.log(election);
       const electionData = electionSchema.safeParse(election);
 
       if (!electionData.success) {
         throw new Error("Invalid election formdata");
       }
-      await repository.addElection(electionData.data);
+      await repository.addElection(election);
     },
 
     async addRepresentativeVote(vote: ElectionVoteInsert) {
