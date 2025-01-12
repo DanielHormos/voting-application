@@ -1,14 +1,71 @@
 import { Db } from "@/db";
-import { electionsTable } from "./schema";
-import { ElectionInsert } from "./types";
+import { desc, eq } from "drizzle-orm";
+import {
+  ElectionInsert,
+  ElectionPreferenceInsert,
+  electionPreferenceTable,
+  electionsTable,
+  ElectionVoteInsert,
+  electionVoteTable,
+  ElectionWinnerInsert,
+  electionWinnerTable,
+} from "./schema";
 
 export function createRepository(db: Db) {
   return {
     async getAllElections() {
       return await db.select().from(electionsTable);
     },
+    async getElectionById(electionId: string) {
+      return await db
+        .select()
+        .from(electionsTable)
+        .where(eq(electionsTable.id, electionId));
+    },
     async addElection(election: ElectionInsert) {
-      return await db.insert(electionsTable).values(election);
+      await db.insert(electionsTable).values(election);
+    },
+
+    async addRepresentativeVote(vote: ElectionVoteInsert) {
+      await db.insert(electionVoteTable).values(vote);
+    },
+
+    async addPublicPreference(electionPreference: ElectionPreferenceInsert) {
+      await db.insert(electionPreferenceTable).values(electionPreference);
+    },
+    async updateElectionStatus(electionId: string) {
+      await db
+        .update(electionsTable)
+        .set({ status: "concluded" })
+        .where(eq(electionsTable.id, electionId));
+    },
+
+    async addElectionWinner(electionWinner: ElectionWinnerInsert) {
+      await db.insert(electionWinnerTable).values(electionWinner);
+    },
+    async getElectionWinner(electionId: string) {
+      return await db
+        .select()
+        .from(electionVoteTable)
+        .where(eq(electionVoteTable.electionId, electionId))
+        .orderBy(desc(electionVoteTable.totalVotes))
+        .limit(1);
+    },
+
+    async getConcludedElectionData() {
+      return await db.select().from(electionWinnerTable);
+    },
+    async getElectionPreference(electionId: string) {
+      return await db
+        .select()
+        .from(electionPreferenceTable)
+        .where(eq(electionPreferenceTable.electionId, electionId));
+    },
+    async getElectionWinnerChoice(electionId: string) {
+      return await db
+        .select({ winnerChoice: electionWinnerTable.winnerChoice })
+        .from(electionWinnerTable)
+        .where(eq(electionWinnerTable.electionId, electionId));
     },
   };
 }
