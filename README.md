@@ -1,5 +1,15 @@
 Voting application
 
+To use this application you need to run these commands
+
+- Have .env file with correct database URL
+
+- npx drizzle-kit push
+
+- npm run dev
+
+- npm run seed
+
 # Final assignment v2.2
 
 You will build a voting application to visualize the impact of your vote in a representative democracy.
