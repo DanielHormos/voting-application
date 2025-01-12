@@ -76,11 +76,6 @@ export function createService(
 
       const preferences = await repository.getElectionPreference(electionId);
 
-      const agreed = preferences.filter(
-        (preferences) => preferences.preference === winnerChoice
-      ).length;
-      const disagreed = preferences.length - agreed;
-
       const winner: ElectionWinnerInsert = {
         electionId,
         name: representative.map(
@@ -91,30 +86,13 @@ export function createService(
         email: representative.map((representative) => representative.email)[0],
         winnerChoice,
         choices: election[0]?.choices,
-        agreed,
-        disagreed,
         total: preferences.length,
       };
-      console.log({ winner: winner });
       return repository.addElectionWinner(winner);
     },
 
     async getElectionWinnerChoice(electionId: string) {
-      const winner = await repository.getElectionWinnerChoice(electionId);
-      const preferences = await repository.getElectionPreference(electionId);
-
-      const winnerChoice = winner[0]?.winnerChoice;
-
-      const agreed = preferences.filter(
-        (preferences) => preferences.preference === winnerChoice
-      ).length;
-      const disagreed = preferences.length - agreed;
-
-      return {
-        agreed,
-        disagreed,
-        total: preferences.length,
-      };
+      return await repository.getElectionWinnerChoice(electionId);
     },
   };
 }
