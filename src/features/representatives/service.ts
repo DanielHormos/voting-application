@@ -1,14 +1,17 @@
-import { RepresentativeInsert } from "./types";
 import { createRepository } from "./repository";
 import { Db } from "@/db";
+import { publicVoteInstance } from "../public-voters/instance";
+import { RepresentativeInsert } from "./schema";
 
 export function createService(
   db: Db,
-  getPublicVoteData: typeof publicVoteService.getPublicVoteData,
-  getPublicVoteDataById: typeof publicVoteService.getPublicVoteDataById
+  getPublicVoteData: typeof publicVoteInstance.getPublicVoteData
 ) {
   const repository = createRepository(db);
   return {
+    async getPublicVoteData() {
+      return await getPublicVoteData;
+    },
     async getAllRepresentatives() {
       return await repository.getAllRepresentatives();
     },
@@ -23,7 +26,8 @@ export function createService(
       return await repository.getRepresentativeVotesById(id);
     },
     async addPublicVote(representativeId: string, publicVoteId: string) {
-      const publicVoter = await getPublicVoteDataById(publicVoteId);
+      const voters = await getPublicVoteData();
+      const publicVoter = voters.find((voter) => voter.id === publicVoteId);
       if (!publicVoter) {
         throw new Error("Public voter not found");
       }
@@ -35,9 +39,6 @@ export function createService(
         throw new Error("Public voter already voted");
       }
       await repository.addPublicVote(representativeId, publicVoteId);
-    },
-    async getPublicVoteData() {
-      return await getPublicVoteData();
     },
   };
 }
