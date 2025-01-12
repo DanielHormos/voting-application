@@ -4,10 +4,10 @@ import { publicVotesTable } from "./schema";
 
 export function createPublicVoteRepository(db: Db) {
   return {
-    async getPublicVoteData() {
+    async getPublicVoter() {
       return db.select().from(publicVotesTable);
     },
-    async getPublicVoterDataById(id: string) {
+    async getPublicVoterById(id: string) {
       return db
         .select({ id: publicVotesTable.id })
         .from(publicVotesTable)

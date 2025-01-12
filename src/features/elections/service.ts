@@ -14,7 +14,7 @@ export function createService(
   getRepresentativeById: typeof representativeInstance.getRepresentativeById,
   getAllRepresentatives: typeof representativeInstance.getAllRepresentatives,
   getRepresentativesVoteById: typeof representativeInstance.getRepresentativeVotesById,
-  getPublicVoter: typeof publicVoteInstance.getPublicVoterDataById
+  getPublicVoter: typeof publicVoteInstance.getPublicVoterById
 ) {
   const repository = createRepository(db);
 
@@ -37,7 +37,7 @@ export function createService(
       return await repository.addRepresentativeVote({ ...vote, totalVotes });
     },
 
-    async addElectionAction(election: ElectionInsert) {
+    async addElection(election: ElectionInsert) {
       const electionData = electionSchema.safeParse(election);
 
       if (!electionData.success) {
@@ -54,8 +54,8 @@ export function createService(
       return await repository.addPublicPreference(vote);
     },
 
-    async concludeElection(electionId: string) {
-      return await repository.concludeElection(electionId);
+    async endElection(electionId: string) {
+      return await repository.endElection(electionId);
     },
     async getElectionWinner() {
       return await repository.getElectionWinner();

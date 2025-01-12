@@ -5,7 +5,7 @@ import { RepresentativeInsert } from "./schema";
 
 export function createService(
   db: Db,
-  getPublicVoteData: typeof publicVoteInstance.getPublicVoterData
+  getPublicVoteData: typeof publicVoteInstance.getPublicVoter
 ) {
   const repository = createRepository(db);
   return {

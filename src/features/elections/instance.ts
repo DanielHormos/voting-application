@@ -8,5 +8,5 @@ export const electionInstance = createService(
   representativeInstance.getRepresentativeById,
   representativeInstance.getAllRepresentatives,
   representativeInstance.getRepresentativeVotesById,
-  publicVoteInstance.getPublicVoterDataById
+  publicVoteInstance.getPublicVoterById
 );

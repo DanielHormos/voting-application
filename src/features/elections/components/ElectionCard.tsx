@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import {
-  addElectionPreferenceAction,
-  addElectionVoteAction,
-  concludeElectionAction,
+  addElectionPreference,
+  addElectionVote,
+  concludeElection,
 } from "../actions";
 import { Election } from "../types";
 
@@ -12,7 +12,7 @@ export function ElectionCard({ title, status, choices, id }: Election) {
   const [choice, setChoice] = useState<string | null>(null);
 
   async function onConclude() {
-    await concludeElectionAction(id, title);
+    await concludeElection(id, title);
     alert("Election concluded");
   }
 
@@ -20,14 +20,14 @@ export function ElectionCard({ title, status, choices, id }: Election) {
     if (!choice) {
       return;
     }
-    await addElectionVoteAction(id, choice);
+    await addElectionVote(id, choice);
     alert("Voted");
   }
   async function onPreference() {
     if (!choice) {
       return;
     }
-    await addElectionPreferenceAction(id, choice);
+    await addElectionPreference(id, choice);
     alert("Preference added");
   }
   return (

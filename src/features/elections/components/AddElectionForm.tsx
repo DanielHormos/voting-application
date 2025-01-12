@@ -1,12 +1,12 @@
 "use client";
 
-import { addElectionAction } from "../actions";
+import { addElection } from "../actions";
 
 export function AddElectionForm() {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <form
-        action={addElectionAction}
+        action={addElection}
         className="flex flex-col items-center p-6 max-w-md w-full"
       >
         <h2 className="text-2xl font-bold mb-4">Add Election</h2>

@@ -4,5 +4,5 @@ import { createService } from "./service";
 
 export const representativeInstance = createService(
   db,
-  publicVoteInstance.getPublicVoterData
+  publicVoteInstance.getPublicVoter
 );

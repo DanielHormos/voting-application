@@ -25,21 +25,15 @@ export function createRepository(db: Db) {
       return representativesWithVotes;
     },
 
-    async addRepresentative(representative: RepresentativeInsert) {
-      return await db.insert(representativesTable).values(representative);
-    },
-
-    async addPublicVote(representativeId: string, publicVoterId: string) {
-      await db
-        .insert(votesTable)
-        .values({ representativeId, voteId: publicVoterId });
-    },
-
     async getRepresentativeById(representativeId: string) {
       return await db
         .select()
         .from(representativesTable)
         .where(eq(representativesTable.id, representativeId));
+    },
+
+    async addRepresentative(representative: RepresentativeInsert) {
+      return await db.insert(representativesTable).values(representative);
     },
 
     async getRepresentativeVotesById(representativeId: string) {
@@ -49,6 +43,11 @@ export function createRepository(db: Db) {
         .where(eq(votesTable.representativeId, representativeId));
 
       return representatives.map((vote) => ({ totalVotes: vote.totalVotes }));
+    },
+    async addPublicVote(representativeId: string, publicVoterId: string) {
+      await db
+        .insert(votesTable)
+        .values({ representativeId, voteId: publicVoterId });
     },
 
     async checkIfPublicVoterVoted(

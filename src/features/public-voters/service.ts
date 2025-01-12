@@ -4,11 +4,11 @@ import { createPublicVoteRepository } from "./repository";
 export function createPublicVoteService(db: Db) {
   const repository = createPublicVoteRepository(db);
   return {
-    async getPublicVoterDataById(id: string) {
-      return repository.getPublicVoterDataById(id);
+    async getPublicVoterById(id: string) {
+      return repository.getPublicVoterById(id);
     },
-    async getPublicVoterData() {
-      return repository.getPublicVoteData();
+    async getPublicVoter() {
+      return repository.getPublicVoter();
     },
     async addPublicVoteById(id: string) {
       return repository.addPublicVoterById(id);

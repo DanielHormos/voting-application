@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { electionInstance } from "./instance";
 
-export async function addElectionAction(data: FormData) {
+export async function addElection(data: FormData) {
   const title = data.get("title") as string;
   const choices = (data.get("choices") as string).split(",");
 
@@ -13,24 +13,21 @@ export async function addElectionAction(data: FormData) {
     choices,
   };
 
-  await electionInstance.addElectionAction(election);
+  await electionInstance.addElection(election);
   revalidatePath("/elections");
 }
 
-export async function fetchElectionsAction() {
+export async function fetchElections() {
   return await electionInstance.getAllElections();
 }
 
-export async function concludeElectionAction(
-  electionId: string,
-  title: string
-) {
-  await electionInstance.concludeElection(electionId);
+export async function concludeElection(electionId: string, title: string) {
+  await electionInstance.endElection(electionId);
   await electionInstance.addElectionWinner(electionId, title);
   revalidatePath("/elections");
 }
 
-export async function addElectionVoteAction(
+export async function addElectionVote(
   electionId: string,
   electionChoice: string
 ) {
@@ -46,7 +43,7 @@ export async function addElectionVoteAction(
   revalidatePath("/elections");
 }
 
-export async function addElectionPreferenceAction(
+export async function addElectionPreference(
   electionId: string,
   preference: string
 ) {

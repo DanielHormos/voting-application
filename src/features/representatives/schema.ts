@@ -12,8 +12,8 @@ export const representativesTable = pgTable("representatives", {
   email: varchar().notNull().unique(),
 });
 
-export type representativeVotesTableInsert = typeof votesTable.$inferInsert;
-export type representativeVotesTableSelect = typeof votesTable.$inferSelect;
+export type RepresentativeVotesInsert = typeof votesTable.$inferInsert;
+export type RepresentativeVotesSelect = typeof votesTable.$inferSelect;
 
 export const votesTable = pgTable("votes", {
   id: uuid()
