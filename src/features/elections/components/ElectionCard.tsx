@@ -13,6 +13,7 @@ export function ElectionCard({ title, status, choices, id }: Election) {
 
   async function onConclude() {
     await concludeElectionAction(id, title);
+    alert("Election concluded");
   }
 
   async function onVote() {
@@ -20,12 +21,14 @@ export function ElectionCard({ title, status, choices, id }: Election) {
       return;
     }
     await addElectionVoteAction(id, choice);
+    alert("Voted");
   }
   async function onPreference() {
     if (!choice) {
       return;
     }
     await addElectionPreferenceAction(id, choice);
+    alert("Preference added");
   }
   return (
     <div className="p-6 max-w-md mx-auto rounded-xl shadow-md space-y-4">
